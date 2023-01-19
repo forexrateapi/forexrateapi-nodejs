@@ -1,0 +1,27 @@
+{
+  "name": "forexrateapi",
+  "version": "1.0.1",
+  "description": "Official Node.js Library for ForexRateAPI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ForexRateAPI",
+  "license": "GNU GPLv3",
+  "dependencies": {
+    "axios": "^0.24.0"
+  },
+  "homepage": "https://forexrateapi.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/forexrateapi/forexrateapi-nodejs.git"
+  },
+  "keywords": [
+    "foreign exchange rates",
+    "forex",
+    "currency coversion",
+    "currency price",
+    "currency rates",
+    "api"
+  ]
+}
