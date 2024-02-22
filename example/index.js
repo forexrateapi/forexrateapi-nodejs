@@ -13,15 +13,15 @@ const apiKey = 'REPLACE_ME';
   result = await api.fetchLive('USD', ['AUD', 'CAD', 'GBP', 'JPY']);
   console.log(result.data);
 
-  result = await api.fetchHistorical('2021-04-05', 'USD', ['AUD', 'CAD', 'GBP', 'JPY']);
+  result = await api.fetchHistorical('2024-02-05', 'USD', ['AUD', 'CAD', 'GBP', 'JPY']);
   console.log(result.data);
 
-  result = await api.convert('USD', 'EUR', 100, '2021-04-05');
+  result = await api.convert('USD', 'EUR', 100, '2024-02-05');
   console.log(result.data);
 
-  result = await api.timeframe('2021-04-05', '2021-04-06', 'USD', ['AUD', 'CAD', 'GBP', 'JPY']);
+  result = await api.timeframe('2024-02-05', '2024-02-06', 'USD', ['AUD', 'CAD', 'GBP', 'JPY']);
   console.log(result.data);
 
-  result = await api.change('2021-04-05', '2021-04-06', 'USD', ['AUD', 'CAD', 'GBP', 'JPY']);
+  result = await api.change('2024-02-05', '2024-02-06', 'USD', ['AUD', 'CAD', 'GBP', 'JPY']);
   console.log(result.data);
 })();
