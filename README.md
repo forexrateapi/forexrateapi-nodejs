@@ -66,6 +66,20 @@ await api.fetchHistorical('2024-02-05', 'USD', ['AUD', 'CAD', 'GBP', 'JPY']);
 [Link](https://forexrateapi.com/documentation#api_historical)
 
 ---
+#### ohlc(base, currency, date, dateType)
+
+- `base` <[string]> Optional. Pass in a base currency, defaults to USD.
+- `currency` <[string]> Required. Specify currency you would like to get OHLC for.
+- `date` <[string]> Required. Specify date to use historical midpoint value for conversion with format `YYYY-MM-DD`. Otherwise, it will use live exchange rate date if value not passed in.
+- `dateType` <[string]> Optional. Pass in a date type, overrides date parameter if passed in.
+
+```js
+await api.ohlc('USD', 'EUR', '2024-02-05', null);
+```
+
+[Link](https://forexrateapi.com/documentation#api_ohlc)
+
+---
 #### convert(from, to, amount, date)
 
 - `from` <[string]> Optional. Pass in a base currency, defaults to USD.
@@ -106,6 +120,15 @@ await api.change('2024-02-05', '2024-02-06', 'USD', ['AUD', 'CAD', 'GBP', 'JPY']
 ```
 
 [Link](https://forexrateapi.com/documentation#api_change)
+
+---
+#### usage()
+
+```js
+await api.usage();
+```
+
+[Link](https://forexrateapi.com/documentation#api_usage)
 
 ---
 **[Official documentation](https://forexrateapi.com/documentation)**

@@ -47,6 +47,19 @@
     });
   };
 
+  exports.ohlc = function(base, currency, date, dateType) {
+    return axios({
+      url: 'https://api.forexrateapi.com/v1/ohlc',
+      params: removeEmpty({
+        api_key: this.apiKey,
+        base: base,
+        currency: currency,
+        date: date,
+        date_type: dateType,
+      }),
+    });
+  }
+
   exports.convert = function(from, to, amount, date) {
     return axios({
       url: 'https://api.forexrateapi.com/v1/convert',
@@ -82,6 +95,15 @@
         end_date: endDate,
         base: base,
         currencies: (currencies || []).join(','),
+      }),
+    });
+  }
+
+  exports.usage = function(base, currency) {
+    return axios({
+      url: 'https://api.forexrateapi.com/v1/usage',
+      params: removeEmpty({
+        api_key: this.apiKey,
       }),
     });
   }
