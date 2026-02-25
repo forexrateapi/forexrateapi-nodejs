@@ -21,6 +21,24 @@ api.setAPIKey('SET_YOUR_API_KEY_HERE');
 await api.fetchLive('USD', ['AUD', 'CAD', 'GBP', 'JPY']);
 ```
 ---
+## Server Regions
+
+ForexRateAPI provides two regional endpoints. Choose the one closest to your servers for optimal performance.
+
+| Region | Base URL |
+|--------|----------|
+| United States (default) | `https://api.forexrateapi.com/v1` |
+| Europe | `https://api-eu.forexrateapi.com/v1` |
+
+```js
+api.setAPIKey('SET_YOUR_API_KEY_HERE');
+
+// Default is US server
+// Switch to EU server:
+api.setServer('eu');
+```
+
+---
 ## Documentation
 
 #### setAPIKey(apiKey)
@@ -33,6 +51,15 @@ In order to use this library, you must first call this function with an API key.
 api.setAPIKey('SET_YOUR_API_KEY_HERE');
 ```
 ---
+#### setServer(server)
+
+- `server` <[string]> Pass `'eu'` to use the EU server (`api-eu.forexrateapi.com`), or `'us'` for the US server. Defaults to US if not specified.
+
+```js
+api.setServer('eu');
+```
+
+---
 #### fetchSymbols()
 ```js
 await api.fetchSymbols();
@@ -41,10 +68,11 @@ await api.fetchSymbols();
 [Link](https://forexrateapi.com/documentation#api_symbol)
 
 ---
-#### fetchLive(base, currencies)
+#### fetchLive(base, currencies, math)
 
 - `base` <[string]> Optional. Pass in a base currency, defaults to USD.
 - `currencies` <[Array]<[string]>> Optional. Pass in an array of currencies to return values for.
+- `math` <[string]> Optional. Pass in a math expression to apply to the rates.
 
 ```js
 await api.fetchLive('USD', ['AUD', 'CAD', 'GBP', 'JPY']);
@@ -64,6 +92,22 @@ await api.fetchHistorical('2024-02-05', 'USD', ['AUD', 'CAD', 'GBP', 'JPY']);
 ```
 
 [Link](https://forexrateapi.com/documentation#api_historical)
+
+---
+#### hourly(base, currency, startDate, endDate, math, dateType)
+
+- `base` <[string]> Optional. Pass in a base currency, defaults to USD.
+- `currency` <[string]> Required. Specify currency you would like to get hourly rates for.
+- `startDate` <[string]> Required. Specify the start date using the format `YYYY-MM-DD`.
+- `endDate` <[string]> Required. Specify the end date using the format `YYYY-MM-DD`.
+- `math` <[string]> Optional. Pass in a math expression to apply to the rates.
+- `dateType` <[string]> Optional. Pass in a date type, overrides date parameters if passed in.
+
+```js
+await api.hourly('USD', 'EUR', '2024-02-05', '2024-02-05');
+```
+
+[Link](https://forexrateapi.com/documentation#api_hourly)
 
 ---
 #### ohlc(base, currency, date, dateType)
@@ -94,10 +138,10 @@ await api.convert('USD', 'EUR', 100, '2024-02-05');
 [Link](https://forexrateapi.com/documentation#api_convert)
 
 ---
-#### timeframe(start_date, end_date, base, currencies)
+#### timeframe(startDate, endDate, base, currencies)
 
-- `start_date` <[string]> Required. Specify the start date of your timeframe using the format `YYYY-MM-DD`.
-- `end_date` <[string]> Required. Specify the end date of your timeframe using the format `YYYY-MM-DD`.
+- `startDate` <[string]> Required. Specify the start date of your timeframe using the format `YYYY-MM-DD`.
+- `endDate` <[string]> Required. Specify the end date of your timeframe using the format `YYYY-MM-DD`.
 - `base` <[string]> Optional. Pass in a base currency, defaults to USD.
 - `currencies` <[Array]<[string]>> Optional. Pass in an array of currencies to return values for.
 
@@ -108,12 +152,13 @@ await api.timeframe('2024-02-05', '2024-02-06', 'USD', ['AUD', 'CAD', 'GBP', 'JP
 [Link](https://forexrateapi.com/documentation#api_timeframe)
 
 ---
-#### change(start_date, end_date, base, currencies)
+#### change(startDate, endDate, base, currencies, dateType)
 
-- `start_date` <[string]> Required. Specify the start date of your timeframe using the format `YYYY-MM-DD`.
-- `end_date` <[string]> Required. Specify the end date of your timeframe using the format `YYYY-MM-DD`.
+- `startDate` <[string]> Required. Specify the start date of your timeframe using the format `YYYY-MM-DD`.
+- `endDate` <[string]> Required. Specify the end date of your timeframe using the format `YYYY-MM-DD`.
 - `base` <[string]> Optional. Pass in a base currency, defaults to USD.
 - `currencies` <[Array]<[string]>> Optional. Pass in an array of currencies to return values for.
+- `dateType` <[string]> Optional. Pass in a date type, overrides date parameters if passed in.
 
 ```js
 await api.change('2024-02-05', '2024-02-06', 'USD', ['AUD', 'CAD', 'GBP', 'JPY']);

@@ -1,11 +1,17 @@
 (function() {
   const axios = require('axios');
 
+  const SERVERS = {
+    us: 'https://api.forexrateapi.com/v1',
+    eu: 'https://api-eu.forexrateapi.com/v1'
+  };
+
   var apiKey;
+  var baseUrl = SERVERS.us;
 
   function removeEmpty(obj) {
     for (var propName in obj) {
-      if (obj[propName] === null || obj[propName] === undefined || obj[propName] == '') {
+      if (obj[propName] === null || obj[propName] === undefined || obj[propName] === '') {
         delete obj[propName];
       }
     }
@@ -16,29 +22,34 @@
     this.apiKey = apiKey;
   };
 
+  exports.setServer = function(server) {
+    baseUrl = SERVERS[server] || SERVERS.us;
+  };
+
   exports.fetchSymbols = function() {
     return axios({
-      url: 'https://api.forexrateapi.com/v1/symbols',
+      url: `${baseUrl}/symbols`,
       params: {
         api_key: this.apiKey,
       },
     });
   };
 
-  exports.fetchLive = function(base, currencies) {
+  exports.fetchLive = function(base, currencies, math) {
     return axios({
-      url: 'https://api.forexrateapi.com/v1/latest',
+      url: `${baseUrl}/latest`,
       params: removeEmpty({
         api_key: this.apiKey,
         base: base,
         currencies: (currencies || []).join(','),
+        math: math,
       }),
     });
   };
 
   exports.fetchHistorical = function(date, base, currencies) {
     return axios({
-      url: `https://api.forexrateapi.com/v1/${date}`,
+      url: `${baseUrl}/${date}`,
       params: removeEmpty({
         api_key: this.apiKey,
         base: base,
@@ -47,9 +58,24 @@
     });
   };
 
+  exports.hourly = function(base, currency, startDate, endDate, math, dateType) {
+    return axios({
+      url: `${baseUrl}/hourly`,
+      params: removeEmpty({
+        api_key: this.apiKey,
+        base: base,
+        currency: currency,
+        start_date: startDate,
+        end_date: endDate,
+        math: math,
+        date_type: dateType,
+      }),
+    });
+  };
+
   exports.ohlc = function(base, currency, date, dateType) {
     return axios({
-      url: 'https://api.forexrateapi.com/v1/ohlc',
+      url: `${baseUrl}/ohlc`,
       params: removeEmpty({
         api_key: this.apiKey,
         base: base,
@@ -62,7 +88,7 @@
 
   exports.convert = function(from, to, amount, date) {
     return axios({
-      url: 'https://api.forexrateapi.com/v1/convert',
+      url: `${baseUrl}/convert`,
       params: removeEmpty({
         api_key: this.apiKey,
         from: from,
@@ -75,7 +101,7 @@
 
   exports.timeframe = function(startDate, endDate, base, currencies) {
     return axios({
-      url: 'https://api.forexrateapi.com/v1/timeframe',
+      url: `${baseUrl}/timeframe`,
       params: removeEmpty({
         api_key: this.apiKey,
         start_date: startDate,
@@ -86,22 +112,23 @@
     });
   };
 
-  exports.change = function(startDate, endDate, base, currencies) {
+  exports.change = function(startDate, endDate, base, currencies, dateType) {
     return axios({
-      url: 'https://api.forexrateapi.com/v1/change',
+      url: `${baseUrl}/change`,
       params: removeEmpty({
         api_key: this.apiKey,
         start_date: startDate,
         end_date: endDate,
         base: base,
         currencies: (currencies || []).join(','),
+        date_type: dateType,
       }),
     });
   }
 
-  exports.usage = function(base, currency) {
+  exports.usage = function() {
     return axios({
-      url: 'https://api.forexrateapi.com/v1/usage',
+      url: `${baseUrl}/usage`,
       params: removeEmpty({
         api_key: this.apiKey,
       }),

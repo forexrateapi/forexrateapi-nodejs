@@ -5,6 +5,9 @@ const apiKey = 'REPLACE_ME';
 (async function() {
   api.setAPIKey(apiKey);
 
+  // Or use EU server:
+  // api.setServer('eu');
+
   var result;
 
   result = await api.fetchSymbols();
@@ -14,6 +17,9 @@ const apiKey = 'REPLACE_ME';
   console.log(result.data);
 
   result = await api.fetchHistorical('2024-02-05', 'USD', ['AUD', 'CAD', 'GBP', 'JPY']);
+  console.log(result.data);
+
+  result = await api.hourly('USD', 'EUR', '2024-02-05', '2024-02-05');
   console.log(result.data);
 
   result = await api.ohlc('USD', 'EUR', '2024-02-05', null);
